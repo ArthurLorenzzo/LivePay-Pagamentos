@@ -3,6 +3,7 @@ package com.br.livepaypag.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +24,8 @@ public class Pagamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotNull
+    @Positive
     @Column
     private BigDecimal valor;
 
@@ -35,7 +37,7 @@ public class Pagamento {
     @NotBlank
     @Size(max = 16)
     @Column
-    private String numero;
+        private String numero;
 
     @NotBlank
     @Size(max=7)

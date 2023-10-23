@@ -11,6 +11,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/pagamentos")
@@ -32,10 +35,10 @@ public class PagamentoController {
 
 
     @PostMapping
-    public PagamentoDTO cadastrar(@RequestBody @Valid PagamentoDTO dto) {
+    public ResponseEntity<PagamentoDTO> cadastrar(@RequestBody @Valid PagamentoDTO dto) {
+        PagamentoDTO pagamento = pagamentoService.criarPagamento(dto);
 
-        return pagamentoService.criarPagamento(dto);
-
+        return ResponseEntity.ok(pagamento);
     }
 
 }

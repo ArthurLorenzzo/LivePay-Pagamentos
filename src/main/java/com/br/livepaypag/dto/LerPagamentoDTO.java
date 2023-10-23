@@ -7,14 +7,18 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 
+@Getter
+@Setter
+public class LerPagamentoDTO {
 
-public record LerPagamentoDTO (Long id,
+    private Long id;
 
-                               BigDecimal valor,
+    private BigDecimal valor;
 
-                               String nome,
+    private String nome;
 
-                               Status status,
+    private Status status;
 
-                               TipoDePagamento tipoDePagamento){
+    private TipoDePagamento tipoDePagamento;
+
 }

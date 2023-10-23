@@ -13,23 +13,24 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 
+@Getter
+@Setter
+public class PagamentoDTO {
+        private Long id;
 
-public record PagamentoDTO(
-        Long id,
+        private BigDecimal valor;
 
-        BigDecimal valor,
+        private String nome;
 
-        String nome,
+        private String numero;
 
-        String numero,
+        private String expiracao;
 
-        String expiracao,
+        private String codigoSeguranca;
 
-        String codigoSeguranca,
+        private Status status;
 
-        Status status,
-
-        TipoDePagamento tipoDePagamento) {
+        private TipoDePagamento tipoDePagamento;
 
 
 }

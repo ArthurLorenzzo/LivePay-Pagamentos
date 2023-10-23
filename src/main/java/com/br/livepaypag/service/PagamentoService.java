@@ -19,6 +19,7 @@ public class PagamentoService {
     @Autowired
     private PagamentoRepository pagamentoRepository;
 
+    @Autowired
     private ModelMapper modelMapper;
 
     public Page<LerPagamentoDTO> obterTodos(Pageable pageable){
