@@ -22,6 +22,8 @@ public class PagamentoDTO {
 
         private String nome;
 
+        private String email;
+
         private String numero;
 
         private String expiracao;

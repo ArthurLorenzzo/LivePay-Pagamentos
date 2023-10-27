@@ -4,6 +4,7 @@ import com.br.livepaypag.dto.LerPagamentoDTO;
 import com.br.livepaypag.dto.PagamentoDTO;
 import com.br.livepaypag.model.Pagamento;
 import com.br.livepaypag.model.Status;
+import com.br.livepaypag.producers.PagamentoProducer;
 import com.br.livepaypag.repository.PagamentoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
@@ -18,6 +20,9 @@ public class PagamentoService {
 
     @Autowired
     private PagamentoRepository pagamentoRepository;
+
+    @Autowired
+    private PagamentoProducer pagamentoProducer;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -35,16 +40,28 @@ public class PagamentoService {
         return modelMapper.map(pagamento, LerPagamentoDTO.class);
     }
 
+    @Transactional
     public PagamentoDTO criarPagamento(PagamentoDTO pagamentoDTO){
         Pagamento pagamento = modelMapper.map(pagamentoDTO, Pagamento.class);
         pagamento.setStatus(Status.CRIADO);
-        pagamentoRepository.save(pagamento);
+        pagamento = pagamentoRepository.save(pagamento);
+        pagamentoProducer.publishMessageEmail(pagamento);
 
         return modelMapper.map(pagamento, PagamentoDTO.class);
     }
 
+    public void confirmarPagamento(Long id) {
+        Pagamento pagamento = pagamentoRepository.findById(id)
+                .orElseThrow(RuntimeException::new);
+        pagamento.setStatus(Status.CONFIRMADO);
+
+    }
+
     public void excluirPagamento(Long id) {
-        pagamentoRepository.deleteById(id);
+        Pagamento pagamento = pagamentoRepository.findById(id)
+                        .orElseThrow(RuntimeException::new);
+        pagamento.setStatus(Status.CANCELADO);
+
     }
 
 }

@@ -1,10 +1,7 @@
 package com.br.livepaypag.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +30,10 @@ public class Pagamento {
     @Size(max = 100)
     @Column
     private String nome;
+
+    @Column
+    @Email
+    private String email;
 
     @NotBlank
     @Size(max = 16)

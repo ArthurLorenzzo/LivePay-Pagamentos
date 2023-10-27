@@ -15,7 +15,7 @@ public class LerPagamentoDTO {
 
     private BigDecimal valor;
 
-    private String nome;
+    private String email;
 
     private Status status;
 
