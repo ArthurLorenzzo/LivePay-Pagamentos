@@ -1,7 +1,5 @@
 package com.br.livepaypag.dto;
 
-import com.br.livepaypag.model.Cartao;
-import com.br.livepaypag.model.Status;
 import com.br.livepaypag.model.TipoDePagamento;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
@@ -12,21 +10,23 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-
 @Getter
 @Setter
-public class PagamentoDTO {
-        private Long id;
+public class CartaoDto {
 
-        private BigDecimal valor;
+    private Long id;
 
-        private String nome;
+    private String nome;
 
-        private String email;
+    private String numero;
 
-        private Long cartao;
 
-        private Status status;
+    private String dataExpiracao;
+
+
+    private String codigoSeguranca;
+
+    private TipoDePagamento tipoDePagamento;
+
 
 }

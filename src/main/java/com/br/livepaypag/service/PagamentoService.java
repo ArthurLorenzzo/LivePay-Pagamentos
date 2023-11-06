@@ -5,6 +5,7 @@ import com.br.livepaypag.dto.PagamentoDTO;
 import com.br.livepaypag.model.Pagamento;
 import com.br.livepaypag.model.Status;
 import com.br.livepaypag.producers.PagamentoProducer;
+import com.br.livepaypag.repository.CartaoRepository;
 import com.br.livepaypag.repository.PagamentoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
@@ -20,6 +21,9 @@ public class PagamentoService {
 
     @Autowired
     private PagamentoRepository pagamentoRepository;
+
+    @Autowired
+    private CartaoRepository cartaoRepository;
 
     @Autowired
     private PagamentoProducer pagamentoProducer;
@@ -44,6 +48,9 @@ public class PagamentoService {
     public PagamentoDTO criarPagamento(PagamentoDTO pagamentoDTO){
         Pagamento pagamento = modelMapper.map(pagamentoDTO, Pagamento.class);
         pagamento.setStatus(Status.CRIADO);
+        pagamento.setCartao(cartaoRepository.findById(pagamentoDTO.getCartao())
+                .orElseThrow(RuntimeException::new));
+
         pagamento = pagamentoRepository.save(pagamento);
         pagamentoProducer.publishMessageEmail(pagamento);
 
