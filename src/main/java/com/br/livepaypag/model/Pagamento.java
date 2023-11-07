@@ -36,6 +36,7 @@ public class Pagamento {
     private String email;
 
     @ManyToOne
+    @JoinColumn(name = "cartao_id")
     private Cartao cartao;
 
     @NotNull

@@ -25,7 +25,7 @@ public class PagamentoDTO {
 
         private String email;
 
-        private Long cartao;
+        private Long cartao_id;
 
         private Status status;
 

@@ -1,5 +1,6 @@
 package com.br.livepaypag.dto;
 
+import com.br.livepaypag.model.Cartao;
 import com.br.livepaypag.model.Status;
 import com.br.livepaypag.model.TipoDePagamento;
 import lombok.Getter;
@@ -15,10 +16,11 @@ public class LerPagamentoDTO {
 
     private BigDecimal valor;
 
+    private String nome;
+
     private String email;
 
+    private Cartao cartao;
+
     private Status status;
-
-    private TipoDePagamento tipoDePagamento;
-
 }

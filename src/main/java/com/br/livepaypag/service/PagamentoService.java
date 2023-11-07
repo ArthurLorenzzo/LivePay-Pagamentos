@@ -45,16 +45,16 @@ public class PagamentoService {
     }
 
     @Transactional
-    public PagamentoDTO criarPagamento(PagamentoDTO pagamentoDTO){
+    public LerPagamentoDTO criarPagamento(PagamentoDTO pagamentoDTO){
         Pagamento pagamento = modelMapper.map(pagamentoDTO, Pagamento.class);
         pagamento.setStatus(Status.CRIADO);
-        pagamento.setCartao(cartaoRepository.findById(pagamentoDTO.getCartao())
+        pagamento.setCartao(cartaoRepository.findById(pagamentoDTO.getCartao_id())
                 .orElseThrow(RuntimeException::new));
 
         pagamento = pagamentoRepository.save(pagamento);
         pagamentoProducer.publishMessageEmail(pagamento);
 
-        return modelMapper.map(pagamento, PagamentoDTO.class);
+        return modelMapper.map(pagamento, LerPagamentoDTO.class);
     }
 
     public void confirmarPagamento(Long id) {
